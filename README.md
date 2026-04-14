@@ -17,7 +17,7 @@
 ```bash
 git clone https://github.com/margosha-soso/smart-car
 cd smart-car
-pip install ~r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Запуск проекта
