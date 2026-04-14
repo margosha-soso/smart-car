@@ -1,0 +1,5 @@
+mediapipe
+numpy
+scikit-learn
+joblib
+requests
