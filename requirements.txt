@@ -3,3 +3,6 @@ numpy
 scikit-learn
 joblib
 requests
+cv2
+time
+pandas
