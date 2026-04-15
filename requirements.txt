@@ -1,8 +1,6 @@
 mediapipe
-numpy
 scikit-learn
 joblib
 requests
-cv2
-time
-pandas
+opencv-python
+numpy
