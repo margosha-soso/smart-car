@@ -2,13 +2,18 @@ import cv2
 import time
 import mediapipe as mp
 import numpy as np
+import os
 
 cap = cv2.VideoCapture(0) # подключаемся к видеопотоку(0 - встроенная камера)
 cap.set(3, 640)
 cap.set(4, 480)
 
-X = [] # координаты руки
-y = [] # метки label
+# загрузка старых данных/создание новой базы
+if os.path.exists("X.npy"):
+    X = list(np.load("X.npy", allow_pickle=True))
+    y = list(np.load("y.npy", allow_pickle=True))
+else:
+    X, y = [], []
 
 mp_hands = mp.solutions.hands
 mp_draw = mp.solutions.drawing_utils # сокращенное название модуля рисования
@@ -113,14 +118,14 @@ while True:
     elif key == ord('q'):
        break
     # UI
-    cv2.putText(frame, f"Сигнал: {label}", (10, 30),
+    cv2.putText(frame, f"signal: {label}", (10, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
-    cv2.imshow("мама и папа никогда не верили в меня", frame)
+    cv2.imshow("67", frame)
 
 # Сохранение
-
 X = np.array(X)
 y = np.array(y)
+
 np.save("X.npy", X)
 np.save("y.npy", y)
 
