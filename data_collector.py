@@ -120,7 +120,7 @@ while True:
     # UI
     cv2.putText(frame, f"signal: {label}", (10, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
-    cv2.imshow("67", frame)
+    cv2.imshow("model", frame)
 
 # Сохранение
 X = np.array(X)
