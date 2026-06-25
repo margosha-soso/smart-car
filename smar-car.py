@@ -3,7 +3,7 @@ import time
 import os
 
 # === НАСТРОЙКИ ПОДКЛЮЧЕНИЯ ===
-BLUETOOTH_PORT = 'COM7'   # Ваш порт для Bluetooth
+BLUETOOTH_PORT = 'COM4'   # Ваш порт для Bluetooth
 BAUD_RATE = 115200        # Скорость (должна совпадать со скетчем)
 
 # === ФУНКЦИИ УПРАВЛЕНИЯ ===
