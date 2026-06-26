@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 @defgroup gesture_control Gesture Control System
 @brief Система управления роботом жестами с использованием компьютерного зрения и машинного обучения.
@@ -11,8 +10,6 @@
 - Отправка команд на робота через Bluetooth (Serial)
 """
 
-=======
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
 import cv2
 import numpy as np
 import joblib
@@ -20,7 +17,6 @@ import mediapipe as mp
 import serial
 import time
 import logging
-<<<<<<< HEAD
 import warnings
 
 from collections import deque, Counter
@@ -34,37 +30,14 @@ warnings.filterwarnings("ignore")
 # ============================================================
 
 MODEL_PATH = "gesture_model.pkl"                # Путь к обученной модели
-SERIAL_PORT = "COM7"                           # COM-порт для Bluetooth-связи
-BAUD_RATE = 115200                             # Скорость передачи данных
+SERIAL_PORT = "COM7"                            # COM-порт для Bluetooth-связи
+BAUD_RATE = 115200                              # Скорость передачи данных
 
-CONF_THRESHOLD = 0.80                          # Минимальная уверенность для принятия жеста
-STABLE_FRAMES = 3                              # Количество кадров для сглаживания
-NO_HAND_TIMEOUT = 0.5                          # Время ожидания потери руки (сек)
+CONF_THRESHOLD = 0.80                           # Минимальная уверенность для принятия жеста
+STABLE_FRAMES = 3                               # Количество кадров для сглаживания
+NO_HAND_TIMEOUT = 0.5                           # Время ожидания потери руки (сек)
 
 COMMAND_COOLDOWN = 0.25                         # Задержка между отправками команд (сек)
-=======
-import  warnings
-warnings.filterwarnings("ignore")
-
-from collections import deque, Counter
-
-
-# ============================================================
-# CONFIG
-# ============================================================
-
-MODEL_PATH = "gesture_model.pkl"
-
-SERIAL_PORT = "COM4"
-BAUD_RATE = 115200
-
-CONF_THRESHOLD = 0.80
-
-STABLE_FRAMES = 3
-NO_HAND_TIMEOUT = 0.5
-
-COMMAND_COOLDOWN = 0.25
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
 
 GESTURE_TO_ROBOT = {
     "forward": "F",
@@ -73,13 +46,10 @@ GESTURE_TO_ROBOT = {
     "right": "R",
     "stop": "S"
 }
-<<<<<<< HEAD
 """
 @var GESTURE_TO_ROBOT
 @brief Словарь для сопоставления названий жестов с командами для робота.
 """
-=======
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
 
 
 # ============================================================
@@ -90,12 +60,9 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(message)s"
 )
-<<<<<<< HEAD
 """
 @brief Настройка логирования с выводом времени.
 """
-=======
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
 
 
 # ============================================================
@@ -103,7 +70,6 @@ logging.basicConfig(
 # ============================================================
 
 class RobotController:
-<<<<<<< HEAD
     """
     @brief Класс для управления роботом по последовательному порту (Bluetooth).
     @details
@@ -120,18 +86,10 @@ class RobotController:
         self.port = port
         self.baud = baud
         self.serial = None
-=======
-    def __init__(self, port, baud):
-        self.port = port
-        self.baud = baud
-        self.serial = None
-
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
         self.last_command = None
         self.last_send_time = 0
 
     def connect(self):
-<<<<<<< HEAD
         """
         @brief Устанавливает соединение с роботом по последовательному порту.
         @details Открывает порт, ждёт 2 секунды для инициализации и отправляет команду "S" (стоп).
@@ -148,37 +106,18 @@ class RobotController:
         Команда не отправляется, если она совпадает с предыдущей (защита от спама).
         @param command   Одиночный символ команды ('F', 'B', 'L', 'R', 'S').
         """
-=======
-        self.serial = serial.Serial(self.port, self.baud, timeout=1)
-        time.sleep(2)
-        logging.info(f"Connected to robot on {self.port}")
-
-        self.send("S")
-
-    def send(self, command):
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
         if self.serial is None:
             return
 
         now = time.time()
 
-<<<<<<< HEAD
         # Защита от повторной отправки той же команды
-=======
-        # антиспам
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
         if command == self.last_command:
             return
 
         try:
             self.serial.write((command + "\n").encode())
-<<<<<<< HEAD
             logging.info(f"-> ROBOT: {command}")
-=======
-
-            logging.info(f"-> ROBOT: {command}")
-
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
             self.last_command = command
             self.last_send_time = now
 
@@ -186,7 +125,6 @@ class RobotController:
             logging.error(f"Serial send error: {e}")
 
     def emergency_stop(self):
-<<<<<<< HEAD
         """
         @brief Отправляет команду экстренной остановки.
         """
@@ -201,16 +139,6 @@ class RobotController:
         self.emergency_stop()
         if self.serial:
             self.serial.close()
-=======
-        self.send("S")
-
-    def close(self):
-        self.emergency_stop()
-
-        if self.serial:
-            self.serial.close()
-
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
         logging.info("Connection closed")
 
 
@@ -219,15 +147,12 @@ class RobotController:
 # ============================================================
 
 def extract_features(hand_landmarks, label):
-<<<<<<< HEAD
     """
     @brief Извлекает сырые признаки из данных MediaPipe.
     @param hand_landmarks   Объект hand_landmarks от MediaPipe.
     @param label            Строка "Left" или "Right" — обозначение руки.
     @return                 Вектор признаков размером 64 (21 точка * 3 координаты + 1 флаг руки).
     """
-=======
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
     data = []
 
     for lm in hand_landmarks.landmark:
@@ -239,7 +164,6 @@ def extract_features(hand_landmarks, label):
 
 
 def normalize(features):
-<<<<<<< HEAD
     """
     @brief Нормализует признаки, делая их инвариантными к положению руки в кадре.
     @details
@@ -248,8 +172,6 @@ def normalize(features):
     @param features     Сырой вектор признаков (64 элемента).
     @return             Нормализованный вектор признаков (64 элемента).
     """
-=======
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
     coords = features[:63].reshape(21, 3)
 
     wrist = coords[0]
@@ -270,7 +192,6 @@ def normalize(features):
 # ============================================================
 
 class GestureAI:
-<<<<<<< HEAD
     """
     @brief Класс для распознавания жестов с использованием обученной модели.
     @details
@@ -297,24 +218,13 @@ class GestureAI:
         @param features     Нормализованный вектор признаков (64 элемента).
         @return             Кортеж: (название жеста, уверенность).
         """
-=======
-    def __init__(self, model_path):
-        self.model = joblib.load(model_path)
-
-        self.buffer = deque(maxlen=STABLE_FRAMES)
-
-    def predict(self, features):
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
         probs = self.model.predict_proba([features])[0]
 
         idx = np.argmax(probs)
         confidence = probs[idx]
         gesture = self.model.classes_[idx]
 
-<<<<<<< HEAD
         # Отладочная печать
-=======
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
         print("RAW:", gesture, confidence)
 
         if confidence < CONF_THRESHOLD:
@@ -334,7 +244,6 @@ class GestureAI:
 # ============================================================
 
 def main():
-<<<<<<< HEAD
     """
     @brief Основная функция управления роботом жестами.
     @details
@@ -345,9 +254,6 @@ def main():
     4. Основной цикл: захват кадра → детекция руки → предсказание жеста → отправка команды
     5. Обработка ошибок и безопасное завершение
     """
-=======
-
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
     # ----------------------------
     # INIT ROBOT
     # ----------------------------
@@ -380,20 +286,12 @@ def main():
     # ============================
     try:
         while True:
-<<<<<<< HEAD
-=======
-
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
             ret, frame = cap.read()
             if not ret:
                 break
 
-<<<<<<< HEAD
             # Зеркальное отражение (опционально)
             # frame = cv2.flip(frame, 1)
-=======
-            #frame = cv2.flip(frame, 1)
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
 
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             result = hands.process(rgb)
@@ -405,10 +303,6 @@ def main():
             # HAND DETECTED
             # ----------------------------
             if result.multi_hand_landmarks:
-<<<<<<< HEAD
-=======
-
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
                 last_hand_time = time.time()
 
                 hand = result.multi_hand_landmarks[0]
@@ -475,8 +369,4 @@ def main():
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     main()
-=======
-    main()
->>>>>>> 3728a9054311c79fd686de47af894c899a97d260
