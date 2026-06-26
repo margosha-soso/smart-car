@@ -1,0 +1,25 @@
+# Имя проекта
+PROJECT_NAME           = "GestureDrive - Smart Car"
+PROJECT_BRIEF          = "Система управления роботом жестами"
+
+# Выходная папка
+OUTPUT_DIRECTORY       = ./docs
+
+# Входные файлы (текущая папка)
+INPUT                  = .
+
+# Рекурсивный обход всех подпапок
+RECURSIVE              = YES
+
+# Какие файлы искать
+FILE_PATTERNS          = *.py 
+
+# Извлекать всё (даже если нет комментариев)
+EXTRACT_ALL            = YES
+
+# Генерировать диаграммы (если установлен Graphviz)
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+
+# Оптимизация для Java/Python (улучшает отображение)
+OPTIMIZE_OUTPUT_JAVA   = YES

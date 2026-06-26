@@ -1,0 +1,104 @@
+\doxysection{main.\+Robot\+Controller Class Reference}
+\hypertarget{classmain_1_1_robot_controller}{}\label{classmain_1_1_robot_controller}\index{main.RobotController@{main.RobotController}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classmain_1_1_robot_controller_a2afe50c4a68616c5791ca51cf846288f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, port, baud)
+\item 
+\doxymbox{\hyperlink{classmain_1_1_robot_controller_a3b99655847726e0740b5e15b3641ff2d}{connect}} (self)
+\item 
+\doxymbox{\hyperlink{classmain_1_1_robot_controller_ade51a1268845fbfb111581626990a8e9}{send}} (self, command)
+\item 
+\doxymbox{\hyperlink{classmain_1_1_robot_controller_ad68708f35a4e2c2dc34ee54d8716f2c0}{emergency\+\_\+stop}} (self)
+\item 
+\doxymbox{\hyperlink{classmain_1_1_robot_controller_a0bba99840f8ea93b444ce2d4b9c827a0}{close}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmain_1_1_robot_controller_a674be60a0a68c50fa7fbbfcdc414114e}\label{classmain_1_1_robot_controller_a674be60a0a68c50fa7fbbfcdc414114e} 
+{\bfseries port} = port
+\item 
+\Hypertarget{classmain_1_1_robot_controller_a333195fb313e874b325a95468bb61ed2}\label{classmain_1_1_robot_controller_a333195fb313e874b325a95468bb61ed2} 
+{\bfseries baud} = baud
+\item 
+\Hypertarget{classmain_1_1_robot_controller_a47f6c4744934a1d90d5cd1771d7bb212}\label{classmain_1_1_robot_controller_a47f6c4744934a1d90d5cd1771d7bb212} 
+{\bfseries serial} = None
+\item 
+\Hypertarget{classmain_1_1_robot_controller_a6f4e5e280a350b1e754344db1b104713}\label{classmain_1_1_robot_controller_a6f4e5e280a350b1e754344db1b104713} 
+{\bfseries last\+\_\+command} = None
+\item 
+\Hypertarget{classmain_1_1_robot_controller_a1a6ad32976659b40132fc951721fbc03}\label{classmain_1_1_robot_controller_a1a6ad32976659b40132fc951721fbc03} 
+int {\bfseries last\+\_\+send\+\_\+time} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief Класс для управления роботом по последовательному порту (Bluetooth).
+@details
+Обеспечивает подключение к роботу, отправку команд и экстренную остановку.
+Реализует защиту от дублирования команд.
+\end{DoxyVerb}
+ 
+
+\label{classmain_1_1_robot_controller_doc-constructors}
+\Hypertarget{classmain_1_1_robot_controller_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmain_1_1_robot_controller_a2afe50c4a68616c5791ca51cf846288f}\index{main.RobotController@{main.RobotController}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!main.RobotController@{main.RobotController}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classmain_1_1_robot_controller_a2afe50c4a68616c5791ca51cf846288f} 
+main.\+Robot\+Controller.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{port}{, }\item[{}]{baud}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Конструктор класса RobotController.
+@param port       COM-порт для подключения (например, "COM7").
+@param baud       Скорость передачи данных (бод).
+\end{DoxyVerb}
+ 
+
+\label{classmain_1_1_robot_controller_doc-func-members}
+\Hypertarget{classmain_1_1_robot_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmain_1_1_robot_controller_a0bba99840f8ea93b444ce2d4b9c827a0}\index{main.RobotController@{main.RobotController}!close@{close}}
+\index{close@{close}!main.RobotController@{main.RobotController}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily \label{classmain_1_1_robot_controller_a0bba99840f8ea93b444ce2d4b9c827a0} 
+main.\+Robot\+Controller.\+close (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Закрывает соединение с роботом.
+@details
+Отправляет команду стоп и закрывает последовательный порт.
+\end{DoxyVerb}
+ \Hypertarget{classmain_1_1_robot_controller_a3b99655847726e0740b5e15b3641ff2d}\index{main.RobotController@{main.RobotController}!connect@{connect}}
+\index{connect@{connect}!main.RobotController@{main.RobotController}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily \label{classmain_1_1_robot_controller_a3b99655847726e0740b5e15b3641ff2d} 
+main.\+Robot\+Controller.\+connect (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Устанавливает соединение с роботом по последовательному порту.
+@details Открывает порт, ждёт 2 секунды для инициализации и отправляет команду "S" (стоп).
+\end{DoxyVerb}
+ \Hypertarget{classmain_1_1_robot_controller_ad68708f35a4e2c2dc34ee54d8716f2c0}\index{main.RobotController@{main.RobotController}!emergency\_stop@{emergency\_stop}}
+\index{emergency\_stop@{emergency\_stop}!main.RobotController@{main.RobotController}}
+\doxysubsubsection{\texorpdfstring{emergency\_stop()}{emergency\_stop()}}
+{\footnotesize\ttfamily \label{classmain_1_1_robot_controller_ad68708f35a4e2c2dc34ee54d8716f2c0} 
+main.\+Robot\+Controller.\+emergency\+\_\+stop (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Отправляет команду экстренной остановки.
+\end{DoxyVerb}
+ \Hypertarget{classmain_1_1_robot_controller_ade51a1268845fbfb111581626990a8e9}\index{main.RobotController@{main.RobotController}!send@{send}}
+\index{send@{send}!main.RobotController@{main.RobotController}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily \label{classmain_1_1_robot_controller_ade51a1268845fbfb111581626990a8e9} 
+main.\+Robot\+Controller.\+send (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{command}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Отправляет команду роботу.
+@details
+Команда не отправляется, если она совпадает с предыдущей (защита от спама).
+@param command   Одиночный символ команды ('F', 'B', 'L', 'R', 'S').
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+main.\+py\end{DoxyCompactItemize}

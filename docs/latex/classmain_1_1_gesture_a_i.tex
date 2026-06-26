@@ -1,0 +1,65 @@
+\doxysection{main.\+Gesture\+AI Class Reference}
+\hypertarget{classmain_1_1_gesture_a_i}{}\label{classmain_1_1_gesture_a_i}\index{main.GestureAI@{main.GestureAI}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classmain_1_1_gesture_a_i_a627d2846a14b26eb6ed2240c64e50421}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, model\+\_\+path)
+\item 
+\doxymbox{\hyperlink{classmain_1_1_gesture_a_i_aca1b46031b07fb0e5a14350495abdfb9}{predict}} (self, features)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmain_1_1_gesture_a_i_a5d96f6b02c8f1cc16610b37d66bf0ef8}\label{classmain_1_1_gesture_a_i_a5d96f6b02c8f1cc16610b37d66bf0ef8} 
+{\bfseries model} = joblib.\+load(model\+\_\+path)
+\item 
+\Hypertarget{classmain_1_1_gesture_a_i_a0c72e78dc32966e10dd99cfdba4b7a99}\label{classmain_1_1_gesture_a_i_a0c72e78dc32966e10dd99cfdba4b7a99} 
+{\bfseries buffer} = deque(maxlen=STABLE\+\_\+\+FRAMES)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@brief Класс для распознавания жестов с использованием обученной модели.
+@details
+Загружает модель, выполняет предсказания, применяет порог уверенности
+и сглаживает результаты по нескольким кадрам.
+\end{DoxyVerb}
+ 
+
+\label{classmain_1_1_gesture_a_i_doc-constructors}
+\Hypertarget{classmain_1_1_gesture_a_i_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmain_1_1_gesture_a_i_a627d2846a14b26eb6ed2240c64e50421}\index{main.GestureAI@{main.GestureAI}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!main.GestureAI@{main.GestureAI}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classmain_1_1_gesture_a_i_a627d2846a14b26eb6ed2240c64e50421} 
+main.\+Gesture\+AI.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{model\+\_\+path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Конструктор класса GestureAI.
+@param model_path   Путь к файлу обученной модели (.pkl).
+\end{DoxyVerb}
+ 
+
+\label{classmain_1_1_gesture_a_i_doc-func-members}
+\Hypertarget{classmain_1_1_gesture_a_i_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmain_1_1_gesture_a_i_aca1b46031b07fb0e5a14350495abdfb9}\index{main.GestureAI@{main.GestureAI}!predict@{predict}}
+\index{predict@{predict}!main.GestureAI@{main.GestureAI}}
+\doxysubsubsection{\texorpdfstring{predict()}{predict()}}
+{\footnotesize\ttfamily \label{classmain_1_1_gesture_a_i_aca1b46031b07fb0e5a14350495abdfb9} 
+main.\+Gesture\+AI.\+predict (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{features}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Выполняет предсказание жеста по вектору признаков.
+@details
+1. Получает вероятности классов от модели.
+2. Выбирает класс с максимальной вероятностью.
+3. Если уверенность ниже порога, возвращает "STOP".
+4. Добавляет результат в буфер и возвращает наиболее частый жест за последние кадры.
+@param features     Нормализованный вектор признаков (64 элемента).
+@return             Кортеж: (название жеста, уверенность).
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+main.\+py\end{DoxyCompactItemize}

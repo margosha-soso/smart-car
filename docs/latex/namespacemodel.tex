@@ -1,0 +1,142 @@
+\doxysection{model Namespace Reference}
+\hypertarget{namespacemodel}{}\label{namespacemodel}\index{model@{model}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{namespacemodel_acd300b0eaf35d8b1c6f50bbd0d56395e}{load\+\_\+dataset}} (X\+\_\+path, y\+\_\+path)
+\item 
+\doxymbox{\hyperlink{namespacemodel_ad2ab7a470b17d8f338534013e33627cc}{clean\+\_\+dataset}} (X, y)
+\item 
+\doxymbox{\hyperlink{namespacemodel_abb7101e7aebc2b272f8a8a313f2d4e07}{split\+\_\+dataset}} (X, y, test\+\_\+size=0.\+2, random\+\_\+state=42)
+\item 
+\doxymbox{\hyperlink{namespacemodel_a457b3eac09ec2ecace600264a51e487c}{create\+\_\+model}} ()
+\item 
+\doxymbox{\hyperlink{namespacemodel_a9dfd3b3fe3f724ac002ad41ba227582f}{train\+\_\+model}} (model, X\+\_\+train, y\+\_\+train)
+\item 
+\doxymbox{\hyperlink{namespacemodel_a8030fe13b4b383af105f39f3d340ef06}{evaluate\+\_\+model}} (model, X\+\_\+test, y\+\_\+test)
+\item 
+\doxymbox{\hyperlink{namespacemodel_a7e5cd111fdb342f49d939c12cca2b002}{save\+\_\+model}} (model, filepath="{}gesture\+\_\+model.\+pkl"{})
+\item 
+\doxymbox{\hyperlink{namespacemodel_a51af30a60f9f02777c6396b8247e356f}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@defgroup gesture_training Gesture Model Training
+@brief Обучение модели машинного обучения для распознавания жестов рук.
+@details
+Этот модуль выполняет полный пайплайн обучения модели:
+1. Загрузка и очистка датасета (X.npy, y.npy)
+2. Разбиение на обучающую и тестовую выборки
+3. Создание пайплайна: StandardScaler + SVM (RBF)
+4. Обучение модели
+5. Оценка качества (accuracy, classification report)
+6. Сохранение обученной модели в файл gesture_model.pkl
+\end{DoxyVerb}
+ 
+
+\label{namespacemodel_doc-func-members}
+\Hypertarget{namespacemodel_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacemodel_ad2ab7a470b17d8f338534013e33627cc}\index{model@{model}!clean\_dataset@{clean\_dataset}}
+\index{clean\_dataset@{clean\_dataset}!model@{model}}
+\doxysubsubsection{\texorpdfstring{clean\_dataset()}{clean\_dataset()}}
+{\footnotesize\ttfamily \label{namespacemodel_ad2ab7a470b17d8f338534013e33627cc} 
+clean\+\_\+dataset (\begin{DoxyParamCaption}\item[{}]{X}{, }\item[{}]{y}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Очищает датасет, удаляя примеры с некорректной длиной.
+@details
+Проверяет, что каждый вектор признаков имеет длину 64.
+@param X   Массив признаков.
+@param y   Массив меток.
+@return    Кортеж (X_clean, y_clean) — очищенные массивы.
+\end{DoxyVerb}
+ \Hypertarget{namespacemodel_a457b3eac09ec2ecace600264a51e487c}\index{model@{model}!create\_model@{create\_model}}
+\index{create\_model@{create\_model}!model@{model}}
+\doxysubsubsection{\texorpdfstring{create\_model()}{create\_model()}}
+{\footnotesize\ttfamily \label{namespacemodel_a457b3eac09ec2ecace600264a51e487c} 
+create\+\_\+model (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Создаёт пайплайн модели с предобработкой и SVM-классификатором.
+@details
+Пайплайн состоит из двух шагов:
+1. StandardScaler — нормализация признаков (среднее=0, дисперсия=1)
+2. SVC с ядром RBF (C=10, gamma='scale') — классификатор опорных векторов
+@return    Объект Pipeline (готовый к обучению).
+\end{DoxyVerb}
+ \Hypertarget{namespacemodel_a8030fe13b4b383af105f39f3d340ef06}\index{model@{model}!evaluate\_model@{evaluate\_model}}
+\index{evaluate\_model@{evaluate\_model}!model@{model}}
+\doxysubsubsection{\texorpdfstring{evaluate\_model()}{evaluate\_model()}}
+{\footnotesize\ttfamily \label{namespacemodel_a8030fe13b4b383af105f39f3d340ef06} 
+evaluate\+\_\+model (\begin{DoxyParamCaption}\item[{}]{model}{, }\item[{}]{X\+\_\+test}{, }\item[{}]{y\+\_\+test}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Оценивает качество модели на тестовых данных.
+@param model     Обученная модель.
+@param X_test    Тестовые признаки.
+@param y_test    Тестовые метки.
+@return          Словарь с метриками: accuracy, report.
+\end{DoxyVerb}
+ \Hypertarget{namespacemodel_acd300b0eaf35d8b1c6f50bbd0d56395e}\index{model@{model}!load\_dataset@{load\_dataset}}
+\index{load\_dataset@{load\_dataset}!model@{model}}
+\doxysubsubsection{\texorpdfstring{load\_dataset()}{load\_dataset()}}
+{\footnotesize\ttfamily \label{namespacemodel_acd300b0eaf35d8b1c6f50bbd0d56395e} 
+load\+\_\+dataset (\begin{DoxyParamCaption}\item[{}]{X\+\_\+path}{, }\item[{}]{y\+\_\+path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Загружает датасет из файлов .npy.
+@param X_path   Путь к файлу с признаками (X.npy).
+@param y_path   Путь к файлу с метками (y.npy).
+@return         Кортеж (X, y) — массивы признаков и меток.
+\end{DoxyVerb}
+ \Hypertarget{namespacemodel_a51af30a60f9f02777c6396b8247e356f}\index{model@{model}!main@{main}}
+\index{main@{main}!model@{model}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{namespacemodel_a51af30a60f9f02777c6396b8247e356f} 
+main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Основная функция обучения модели.
+@details
+Последовательность шагов:
+1. Загрузка датасета
+2. Вывод статистики классов
+3. Очистка данных (удаление примеров с длиной != 64)
+4. Разбиение на train/test
+5. Создание и обучение модели
+6. Оценка качества
+7. Сохранение модели
+\end{DoxyVerb}
+ \Hypertarget{namespacemodel_a7e5cd111fdb342f49d939c12cca2b002}\index{model@{model}!save\_model@{save\_model}}
+\index{save\_model@{save\_model}!model@{model}}
+\doxysubsubsection{\texorpdfstring{save\_model()}{save\_model()}}
+{\footnotesize\ttfamily \label{namespacemodel_a7e5cd111fdb342f49d939c12cca2b002} 
+save\+\_\+model (\begin{DoxyParamCaption}\item[{}]{model}{, }\item[{}]{filepath}{ = {\ttfamily "{}gesture\+\_\+model.pkl"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Сохраняет обученную модель в файл.
+@param model      Обученная модель.
+@param filepath   Путь для сохранения (по умолчанию "gesture_model.pkl").
+\end{DoxyVerb}
+ \Hypertarget{namespacemodel_abb7101e7aebc2b272f8a8a313f2d4e07}\index{model@{model}!split\_dataset@{split\_dataset}}
+\index{split\_dataset@{split\_dataset}!model@{model}}
+\doxysubsubsection{\texorpdfstring{split\_dataset()}{split\_dataset()}}
+{\footnotesize\ttfamily \label{namespacemodel_abb7101e7aebc2b272f8a8a313f2d4e07} 
+split\+\_\+dataset (\begin{DoxyParamCaption}\item[{}]{X}{, }\item[{}]{y}{, }\item[{}]{test\+\_\+size}{ = {\ttfamily 0.2}, }\item[{}]{random\+\_\+state}{ = {\ttfamily 42}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Разбивает датасет на обучающую и тестовую выборки.
+@param X            Массив признаков.
+@param y            Массив меток.
+@param test_size    Доля тестовой выборки (по умолчанию 0.2).
+@param random_state  Seed для воспроизводимости.
+@return             Кортеж (X_train, X_test, y_train, y_test).
+\end{DoxyVerb}
+ \Hypertarget{namespacemodel_a9dfd3b3fe3f724ac002ad41ba227582f}\index{model@{model}!train\_model@{train\_model}}
+\index{train\_model@{train\_model}!model@{model}}
+\doxysubsubsection{\texorpdfstring{train\_model()}{train\_model()}}
+{\footnotesize\ttfamily \label{namespacemodel_a9dfd3b3fe3f724ac002ad41ba227582f} 
+train\+\_\+model (\begin{DoxyParamCaption}\item[{}]{model}{, }\item[{}]{X\+\_\+train}{, }\item[{}]{y\+\_\+train}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Обучает модель на тренировочных данных.
+@param model       Объект модели (Pipeline).
+@param X_train     Обучающие признаки.
+@param y_train     Обучающие метки.
+@return            Обученная модель.
+\end{DoxyVerb}
+ 

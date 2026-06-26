@@ -1,0 +1,129 @@
+\doxysection{main Namespace Reference}
+\hypertarget{namespacemain}{}\label{namespacemain}\index{main@{main}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{classmain_1_1_robot_controller}{Robot\+Controller}}
+\item 
+class \doxymbox{\hyperlink{classmain_1_1_gesture_a_i}{Gesture\+AI}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{namespacemain_a3674f67da6ae855b82e581adc4dbb7f5}{extract\+\_\+features}} (hand\+\_\+landmarks, label)
+\item 
+\doxymbox{\hyperlink{namespacemain_aef2450fa4222dc3ec7074322455af5b8}{normalize}} (features)
+\item 
+\doxymbox{\hyperlink{namespacemain_a51af30a60f9f02777c6396b8247e356f}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacemain_a3b065ce5de47dc5af0ef1045ebb8d1cd}\label{namespacemain_a3b065ce5de47dc5af0ef1045ebb8d1cd} 
+str {\bfseries MODEL\+\_\+\+PATH} = "{}gesture\+\_\+model.\+pkl"{}
+\item 
+\Hypertarget{namespacemain_a2c19eda4326244365f20571b455fd442}\label{namespacemain_a2c19eda4326244365f20571b455fd442} 
+str {\bfseries SERIAL\+\_\+\+PORT} = "{}COM7"{}
+\item 
+\Hypertarget{namespacemain_ac0fe97f1e325d3b19283d4f194ee6fe0}\label{namespacemain_ac0fe97f1e325d3b19283d4f194ee6fe0} 
+int {\bfseries BAUD\+\_\+\+RATE} = 115200
+\item 
+\Hypertarget{namespacemain_a532de64ec339e68cb3860788892cbdf2}\label{namespacemain_a532de64ec339e68cb3860788892cbdf2} 
+float {\bfseries CONF\+\_\+\+THRESHOLD} = 0.\+80
+\item 
+\Hypertarget{namespacemain_aa3293dad5e8a570f165140c0fe97c21d}\label{namespacemain_aa3293dad5e8a570f165140c0fe97c21d} 
+int {\bfseries STABLE\+\_\+\+FRAMES} = 3
+\item 
+\Hypertarget{namespacemain_ae0ff835b039ff890db5e66f0c603ab09}\label{namespacemain_ae0ff835b039ff890db5e66f0c603ab09} 
+float {\bfseries NO\+\_\+\+HAND\+\_\+\+TIMEOUT} = 0.\+5
+\item 
+\Hypertarget{namespacemain_ad167503d214ccde7cbcd238f94886143}\label{namespacemain_ad167503d214ccde7cbcd238f94886143} 
+float {\bfseries COMMAND\+\_\+\+COOLDOWN} = 0.\+25
+\item 
+dict \doxymbox{\hyperlink{namespacemain_a88809da431144591e98ae996293c0edf}{GESTURE\+\_\+\+TO\+\_\+\+ROBOT}}
+\item 
+\Hypertarget{namespacemain_ad39dcd94f0ffc845ab416c0783c20d25}\label{namespacemain_ad39dcd94f0ffc845ab416c0783c20d25} 
+{\bfseries level}
+\item 
+\Hypertarget{namespacemain_a758a4b3c52742d78aa30e49d058acea4}\label{namespacemain_a758a4b3c52742d78aa30e49d058acea4} 
+{\bfseries format}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@defgroup gesture_control Gesture Control System
+@brief Система управления роботом жестами с использованием компьютерного зрения и машинного обучения.
+@details
+Этот модуль реализует полный пайплайн:
+- Захват видео с веб-камеры
+- Детекция руки с помощью MediaPipe
+- Извлечение и нормализация признаков
+- Классификация жестов обученной моделью
+- Отправка команд на робота через Bluetooth (Serial)
+\end{DoxyVerb}
+ 
+
+\label{namespacemain_doc-func-members}
+\Hypertarget{namespacemain_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacemain_a3674f67da6ae855b82e581adc4dbb7f5}\index{main@{main}!extract\_features@{extract\_features}}
+\index{extract\_features@{extract\_features}!main@{main}}
+\doxysubsubsection{\texorpdfstring{extract\_features()}{extract\_features()}}
+{\footnotesize\ttfamily \label{namespacemain_a3674f67da6ae855b82e581adc4dbb7f5} 
+extract\+\_\+features (\begin{DoxyParamCaption}\item[{}]{hand\+\_\+landmarks}{, }\item[{}]{label}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Извлекает сырые признаки из данных MediaPipe.
+@param hand_landmarks   Объект hand_landmarks от MediaPipe.
+@param label            Строка "Left" или "Right" — обозначение руки.
+@return                 Вектор признаков размером 64 (21 точка * 3 координаты + 1 флаг руки).
+\end{DoxyVerb}
+ \Hypertarget{namespacemain_a51af30a60f9f02777c6396b8247e356f}\index{main@{main}!main@{main}}
+\index{main@{main}!main@{main}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{namespacemain_a51af30a60f9f02777c6396b8247e356f} 
+main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Основная функция управления роботом жестами.
+@details
+Последовательность работы:
+1. Подключение к роботу (Bluetooth)
+2. Загрузка модели жестов
+3. Инициализация камеры и MediaPipe
+4. Основной цикл: захват кадра → детекция руки → предсказание жеста → отправка команды
+5. Обработка ошибок и безопасное завершение
+\end{DoxyVerb}
+ \Hypertarget{namespacemain_aef2450fa4222dc3ec7074322455af5b8}\index{main@{main}!normalize@{normalize}}
+\index{normalize@{normalize}!main@{main}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}}
+{\footnotesize\ttfamily \label{namespacemain_aef2450fa4222dc3ec7074322455af5b8} 
+normalize (\begin{DoxyParamCaption}\item[{}]{features}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Нормализует признаки, делая их инвариантными к положению руки в кадре.
+@details
+- Смещение относительно запястья (точка 0)
+- Масштабирование по расстоянию от запястья до основания среднего пальца (точка 9)
+@param features     Сырой вектор признаков (64 элемента).
+@return             Нормализованный вектор признаков (64 элемента).
+\end{DoxyVerb}
+ 
+
+\label{namespacemain_doc-var-members}
+\Hypertarget{namespacemain_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacemain_a88809da431144591e98ae996293c0edf}\index{main@{main}!GESTURE\_TO\_ROBOT@{GESTURE\_TO\_ROBOT}}
+\index{GESTURE\_TO\_ROBOT@{GESTURE\_TO\_ROBOT}!main@{main}}
+\doxysubsubsection{\texorpdfstring{GESTURE\_TO\_ROBOT}{GESTURE\_TO\_ROBOT}}
+{\footnotesize\ttfamily \label{namespacemain_a88809da431144591e98ae996293c0edf} 
+dict main.\+GESTURE\+\_\+\+TO\+\_\+\+ROBOT}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}forward"{}}:\ \textcolor{stringliteral}{"{}F"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}back"{}}:\ \textcolor{stringliteral}{"{}B"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}left"{}}:\ \textcolor{stringliteral}{"{}L"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}right"{}}:\ \textcolor{stringliteral}{"{}R"{}},}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}stop"{}}:\ \textcolor{stringliteral}{"{}S"{}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

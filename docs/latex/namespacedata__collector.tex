@@ -1,0 +1,160 @@
+\doxysection{data\+\_\+collector Namespace Reference}
+\hypertarget{namespacedata__collector}{}\label{namespacedata__collector}\index{data\_collector@{data\_collector}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{namespacedata__collector_a77b99b249411c18e04cc6dc4206dce00}{load\+\_\+dataset}} ()
+\item 
+\doxymbox{\hyperlink{namespacedata__collector_ae4996fa6f24e40270e69ac706709d8c1}{save\+\_\+dataset}} (features, labels)
+\item 
+\doxymbox{\hyperlink{namespacedata__collector_ab59bcd19863635de25a88b5afa470a51}{normalize\+\_\+landmarks}} (landmarks)
+\item 
+\doxymbox{\hyperlink{namespacedata__collector_a990d1f8f08a3728f018117291300d90c}{initialize\+\_\+camera}} ()
+\item 
+\doxymbox{\hyperlink{namespacedata__collector_a51af30a60f9f02777c6396b8247e356f}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacedata__collector_a3022c87872cb313b5d0460ed81f2a65f}\label{namespacedata__collector_a3022c87872cb313b5d0460ed81f2a65f} 
+str {\bfseries dataset\+\_\+\+X\+\_\+path} = "{}X.\+npy"{}
+\item 
+\Hypertarget{namespacedata__collector_a251d42115bf642e1ff9abc91bbbc6096}\label{namespacedata__collector_a251d42115bf642e1ff9abc91bbbc6096} 
+str {\bfseries dataset\+\_\+y\+\_\+path} = "{}y.\+npy"{}
+\item 
+\Hypertarget{namespacedata__collector_aa93928ef6da6bc2e7254011e8d7e7356}\label{namespacedata__collector_aa93928ef6da6bc2e7254011e8d7e7356} 
+int {\bfseries camera\+\_\+width} = 640
+\item 
+\Hypertarget{namespacedata__collector_a8f85acca50d37aa787027a1c7f197a42}\label{namespacedata__collector_a8f85acca50d37aa787027a1c7f197a42} 
+int {\bfseries camera\+\_\+height} = 480
+\item 
+\Hypertarget{namespacedata__collector_a1b7d56c3813ffb72d838817ee1ade4b5}\label{namespacedata__collector_a1b7d56c3813ffb72d838817ee1ade4b5} 
+int {\bfseries save\+\_\+interval} = 20
+\item 
+\Hypertarget{namespacedata__collector_ad2aa23d983d2a13af3b2ee49bcecfcbc}\label{namespacedata__collector_ad2aa23d983d2a13af3b2ee49bcecfcbc} 
+int {\bfseries time\+\_\+interval} = 1
+\item 
+\Hypertarget{namespacedata__collector_a5ed6f3552cf8baf4568a98d584d54525}\label{namespacedata__collector_a5ed6f3552cf8baf4568a98d584d54525} 
+int {\bfseries max\+\_\+samples\+\_\+per\+\_\+class} = 2000
+\item 
+\Hypertarget{namespacedata__collector_ab57fa885eacf191895248ff3cde9f287}\label{namespacedata__collector_ab57fa885eacf191895248ff3cde9f287} 
+{\bfseries pause\+\_\+key} = ord("{}p"{})
+\item 
+dict \doxymbox{\hyperlink{namespacedata__collector_a254467b28161eb8f95c4c75f23e1627a}{class\+\_\+names}}
+\item 
+\Hypertarget{namespacedata__collector_a04b36a3087d3ab8bafa02351c7901e79}\label{namespacedata__collector_a04b36a3087d3ab8bafa02351c7901e79} 
+{\bfseries level}
+\item 
+\Hypertarget{namespacedata__collector_a664df766f09d473507e347cd09ea08ca}\label{namespacedata__collector_a664df766f09d473507e347cd09ea08ca} 
+{\bfseries format}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@defgroup data_collector Data Collector
+@brief Сбор и сохранение датасета жестов рук с веб-камеры.
+@details
+Этот модуль реализует сбор данных для обучения модели распознавания жестов.
+Основные функции:
+- Захват видео с веб-камеры
+- Детекция руки с помощью MediaPipe
+- Нормализация координат ключевых точек
+- Сохранение признаков и меток в файлы .npy
+- Управление сбором через клавиатуру
+\end{DoxyVerb}
+ 
+
+\label{namespacedata__collector_doc-func-members}
+\Hypertarget{namespacedata__collector_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedata__collector_a990d1f8f08a3728f018117291300d90c}\index{data\_collector@{data\_collector}!initialize\_camera@{initialize\_camera}}
+\index{initialize\_camera@{initialize\_camera}!data\_collector@{data\_collector}}
+\doxysubsubsection{\texorpdfstring{initialize\_camera()}{initialize\_camera()}}
+{\footnotesize\ttfamily \label{namespacedata__collector_a990d1f8f08a3728f018117291300d90c} 
+initialize\+\_\+camera (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Инициализирует веб-камеру и устанавливает разрешение.
+@details
+Открывает камеру с индексом 0 и устанавливает ширину и высоту кадра.
+@return Объект VideoCapture.
+@throws RuntimeError Если не удалось открыть камеру.
+\end{DoxyVerb}
+ \Hypertarget{namespacedata__collector_a77b99b249411c18e04cc6dc4206dce00}\index{data\_collector@{data\_collector}!load\_dataset@{load\_dataset}}
+\index{load\_dataset@{load\_dataset}!data\_collector@{data\_collector}}
+\doxysubsubsection{\texorpdfstring{load\_dataset()}{load\_dataset()}}
+{\footnotesize\ttfamily \label{namespacedata__collector_a77b99b249411c18e04cc6dc4206dce00} 
+load\+\_\+dataset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Загружает существующий датасет или создаёт новый.
+@details
+Проверяет наличие файлов X.npy и y.npy.
+Если файлы существуют — загружает их.
+Если нет — создаёт пустые списки.
+@return Кортеж (features, labels) — списки признаков и меток.
+\end{DoxyVerb}
+ \Hypertarget{namespacedata__collector_a51af30a60f9f02777c6396b8247e356f}\index{data\_collector@{data\_collector}!main@{main}}
+\index{main@{main}!data\_collector@{data\_collector}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{namespacedata__collector_a51af30a60f9f02777c6396b8247e356f} 
+main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Основная функция сбора данных.
+@details
+Последовательность работы:
+1. Загрузка существующего датасета
+2. Инициализация камеры и MediaPipe
+3. Основной цикл:
+   - Захват кадра
+   - Детекция руки
+   - Нормализация координат
+   - Сохранение примеров при нажатии клавиши
+4. Автосохранение по достижении save_interval
+5. Сохранение датасета при завершении
+\end{DoxyVerb}
+ \Hypertarget{namespacedata__collector_ab59bcd19863635de25a88b5afa470a51}\index{data\_collector@{data\_collector}!normalize\_landmarks@{normalize\_landmarks}}
+\index{normalize\_landmarks@{normalize\_landmarks}!data\_collector@{data\_collector}}
+\doxysubsubsection{\texorpdfstring{normalize\_landmarks()}{normalize\_landmarks()}}
+{\footnotesize\ttfamily \label{namespacedata__collector_ab59bcd19863635de25a88b5afa470a51} 
+normalize\+\_\+landmarks (\begin{DoxyParamCaption}\item[{}]{landmarks}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Нормализует координаты ключевых точек руки.
+@details
+- Запястье (точка 0) используется как центр координат.
+- Расстояние от запястья до основания среднего пальца (точка 9) используется как масштаб.
+- Нормализация делает признаки инвариантными к положению руки в кадре и расстоянию до камеры.
+@param landmarks   Список из 21 ключевой точки руки от MediaPipe.
+@return            Вектор из 63 нормализованных координат (21 точка * 3 координаты) или None, если входных точек не 21.
+\end{DoxyVerb}
+ \Hypertarget{namespacedata__collector_ae4996fa6f24e40270e69ac706709d8c1}\index{data\_collector@{data\_collector}!save\_dataset@{save\_dataset}}
+\index{save\_dataset@{save\_dataset}!data\_collector@{data\_collector}}
+\doxysubsubsection{\texorpdfstring{save\_dataset()}{save\_dataset()}}
+{\footnotesize\ttfamily \label{namespacedata__collector_ae4996fa6f24e40270e69ac706709d8c1} 
+save\+\_\+dataset (\begin{DoxyParamCaption}\item[{}]{features}{, }\item[{}]{labels}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Сохраняет датасет в файлы .npy.
+@param features   Список векторов признаков.
+@param labels     Список меток классов.
+\end{DoxyVerb}
+ 
+
+\label{namespacedata__collector_doc-var-members}
+\Hypertarget{namespacedata__collector_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedata__collector_a254467b28161eb8f95c4c75f23e1627a}\index{data\_collector@{data\_collector}!class\_names@{class\_names}}
+\index{class\_names@{class\_names}!data\_collector@{data\_collector}}
+\doxysubsubsection{\texorpdfstring{class\_names}{class\_names}}
+{\footnotesize\ttfamily \label{namespacedata__collector_a254467b28161eb8f95c4c75f23e1627a} 
+dict data\+\_\+collector.\+class\+\_\+names}
+
+{\bfseries Initial value:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \{}
+\DoxyCodeLine{\ \ \ \ ord(\textcolor{stringliteral}{'f'}):\ \textcolor{stringliteral}{"{}forward"{}},}
+\DoxyCodeLine{\ \ \ \ ord(\textcolor{stringliteral}{'b'}):\ \textcolor{stringliteral}{"{}back"{}},}
+\DoxyCodeLine{\ \ \ \ ord(\textcolor{stringliteral}{'l'}):\ \textcolor{stringliteral}{"{}left"{}},}
+\DoxyCodeLine{\ \ \ \ ord(\textcolor{stringliteral}{'r'}):\ \textcolor{stringliteral}{"{}right"{}},}
+\DoxyCodeLine{\ \ \ \ ord(\textcolor{stringliteral}{'s'}):\ \textcolor{stringliteral}{"{}stop"{}},}
+\DoxyCodeLine{\ \ \ \ ord(\textcolor{stringliteral}{'g'}):\ \textcolor{stringliteral}{"{}no\ gesture"{}}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
